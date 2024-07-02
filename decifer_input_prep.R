@@ -39,11 +39,6 @@ cna <- CNA_Input_Devolution_cleaned %>%
   filter(Type!="amp") %>% 
   mutate(Clone.size = as.numeric(Clone.size))
 
-# cna <- cna %>% 
-#   group_by(Chr) %>% 
-#   rowwise() %>%
-#   mutate(middle_break = any(unique(c(start)) < start &&  any(unique(c(start)) > end)))
-
 # Define function to check conditions within each row of data
 create.cna.table <- function(cna = cna) { 
   unique_sample_ids <- unique(cna$Sample.ID)
@@ -83,9 +78,6 @@ return(cn.test)
 cna<-create.cna.table(cna)
 
 # Append base ploidy for variants without CNA and create CN column for DeCiFer 
-
-
-# cna <- cna %>% filter(Chr=='17')  ##TEST
 
 apply_logic <- function(row,cna=cna,base.ploidy=base.ploidy) {
   filtered_cna <- cna %>%
